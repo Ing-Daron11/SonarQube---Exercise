@@ -11,7 +11,7 @@ El objetivo de este ejercicio son dos:
 
 ## Parte 1: Análisis Local
 
-La primera fase de este ejercicio se realizó sobre el proyecto [**AppNest**](https://github.com/Ing-Daron11/AppNest.git), una aplicación desarrollada con NestJS.
+La primera fase de este ejercicio se realizó sobre mi proyecto [**AppNest**](https://github.com/Ing-Daron11/AppNest.git), una aplicación desarrollada con NestJS.
 
 El proceso detallado para configurar el entorno con Docker, levantar los servicios de SonarQube y ejecutar el análisis de código se encuentra documentado en el siguiente archivo:
 
