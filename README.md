@@ -1,10 +1,10 @@
 # Ejercicio de Integración de SonarQube
 
-Este repositorio documenta un ejercicio práctico sobre la configuración y uso de SonarQube para el análisis de la calidad del código.
+Este repositorio documenta un ejercicio práctico, realizado en mi universidad, sobre la configuración y uso de SonarQube para el análisis de la calidad del código.
 
 ## Contexto
 
-El objetivo de este ejercicio es doble:
+El objetivo de este ejercicio son dos:
 
 1.  **Análisis Local:** Implementar SonarQube en un entorno local para analizar un proyecto existente, familiarizándose con la configuración de servicios, la creación de proyectos y la ejecución del scanner.
 2.  **Análisis Automatizado (Próximamente):** Configurar un pipeline de CI/CD en una máquina virtual para que el análisis de SonarQube se ejecute automáticamente con cada cambio en el código.
