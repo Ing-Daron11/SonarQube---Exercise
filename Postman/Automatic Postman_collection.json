@@ -1,0 +1,985 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-1234-5678f9g0h1i2",
+    "name": "AppNest - Full Integration Test Suite",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Colección completa de pruebas para el sistema de gestión de equipos, con flujo automatizado de autenticación y dependencias entre pruebas."
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "admin_email",
+      "value": "daron@gmail.com",
+      "type": "string"
+    },
+    {
+      "key": "admin_password",
+      "value": "daron123",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "equipment_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "equipment_name",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "maintenance_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "reservation_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth - Login (Admin)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response status code is 201\", function () {",
+              "  pm.expect(pm.response.code).to.equal(201);",
+              "});",
+              "",
+              "const jsonData = pm.response.json();",
+              "pm.expect(jsonData.token).to.exist;",
+              "pm.environment.set(\"admin_token\", jsonData.token);",
+              "",
+              "// También guardamos el user_id para usarlo en otras pruebas",
+              "pm.environment.set(\"user_id\", jsonData.user_id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{admin_email}}\",\n  \"password\": \"{{admin_password}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/auth/login",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Users - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test.user@example.com\",\n  \"password\": \"test123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/auth/register",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Users - Update to Technician",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roles\": [\"TECHNICIAN\"]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/users/{{user_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "users",
+            "{{user_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Equipment - Create",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"HP EliteBook X2\",\n  \"model\": \"840 G7\",\n  \"description\": \"Laptop ejecutiva\",\n  \"category\": \"laptop\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/equipment",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "equipment"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Equipment created successfully\", function () {",
+              "  pm.expect(pm.response.code).to.equal(201);",
+              "  const response = pm.response.json();",
+              "  pm.expect(response.id).to.exist;",
+              "  pm.environment.set(\"equipment_id\", response.id);",
+              "  pm.environment.set(\"equipment_name\", response.name);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Equipment - Get All",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/equipment",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "equipment"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Equipment - Get One",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/equipment/{{equipment_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "equipment",
+            "{{equipment_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Equipment - Edit",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Lenovo ThinkPad Editado\",\n  \"model\": \"X395\",\n  \"description\": \"Modificado\",\n  \"category\": \"laptop\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/equipment/{{equipment_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "equipment",
+            "{{equipment_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Equipment - Search",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/equipment/search?name=thinkpad&category=laptop",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "equipment",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "thinkpad"
+            },
+            {
+              "key": "category",
+              "value": "laptop"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Equipment - Edit Status",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"available\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/equipment/status/{{equipment_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "equipment",
+            "status",
+            "{{equipment_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Maintenance - Create",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"equipmentId\": \"{{equipment_id}}\",\n  \"technicianId\": \"{{user_id}}\",\n  \"description\": \"Revisión del sistema de refrigeración\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/maintenance",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "maintenance"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Maintenance created successfully\", function () {",
+              "  pm.expect(pm.response.code).to.equal(201);",
+              "  const response = pm.response.json();",
+              "  pm.expect(response.id).to.exist;",
+              "  pm.environment.set(\"maintenance_id\", response.id);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Maintenance - Get All",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/maintenance?limit=10&offset=0",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "maintenance"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "offset",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Maintenance - Search",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/maintenance/search?equipmentName=Laptop",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "maintenance",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "equipmentName",
+              "value": "Laptop"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Maintenance - Get by ID",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/maintenance/{{maintenance_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "maintenance",
+            "{{maintenance_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Maintenance - Update",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Revision completa del sistema\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/maintenance/{{maintenance_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "maintenance",
+            "{{maintenance_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reservation - Create",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"equipmentId\": \"{{equipment_id}}\",\n  \"userId\": \"{{user_id}}\",\n  \"startDate\": \"2025-05-11T20:35:49Z\",\n  \"endDate\": \"2025-05-11T22:35:49Z\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/reservations",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "reservations"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Reservation created successfully\", function () {",
+              "  pm.expect(pm.response.code).to.equal(201);",
+              "  const response = pm.response.json();",
+              "  pm.expect(response.id).to.exist;",
+              "  pm.environment.set(\"reservation_id\", response.id);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reservation - Get All",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/reservations?limit=10&offset=0",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "reservations"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "offset",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reservation - Search",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/reservations/search?equipmentId={{equipment_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "reservations",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "equipmentId",
+              "value": "{{equipment_id}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reservation - Get by ID",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/reservations/{{reservation_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "reservations",
+            "{{reservation_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reservation - Update",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"startDate\": \"2025-05-11T20:35:49Z\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/reservations/{{reservation_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "reservations",
+            "{{reservation_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reservation - Delete",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/reservations/{{reservation_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "reservations",
+            "{{reservation_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Maintenance - Delete",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/maintenance/{{maintenance_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "maintenance",
+            "{{maintenance_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Equipment - Delete",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/equipment/{{equipment_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "equipment",
+            "{{equipment_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Users - Delete",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{admin_token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/users/{{user_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "users",
+            "{{user_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Sad Path - Maintenance Without Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"equipmentId\": \"{{equipment_id}}\",\n  \"technicianId\": \"{{user_id}}\",\n  \"description\": \"Verificación sin token\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/maintenance",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "maintenance"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Should return 401 Unauthorized\", function () {",
+              "  pm.expect(pm.response.code).to.equal(401);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sad Path - Reservation Without Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"equipmentId\": \"{{equipment_id}}\",\n  \"userId\": \"{{user_id}}\",\n  \"startDate\": \"2025-05-11T22:06:10.690746Z\",\n  \"endDate\": \"2025-05-11T22:06:10.690795Z\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/reservations",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "reservations"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Should return 401 Unauthorized\", function () {",
+              "  pm.expect(pm.response.code).to.equal(401);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}

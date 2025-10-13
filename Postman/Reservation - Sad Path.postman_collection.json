@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "d20a8ffa-3828-43dc-a488-d4afba4de697",
+		"name": "Reservation - Sad Path",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42130956"
+	},
+	"item": [
+		{
+			"name": "Create Without Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"equipmentId\": \"1d08450c-b18a-42e0-9ae6-c0d420ebebfe\",\n  \"userId\": \"6da1ae26-4c22-46d5-bfb5-35601f245666\",\n  \"startDate\": \"2025-05-11T22:06:10.690746Z\",\n  \"endDate\": \"2025-05-11T22:06:10.690795Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EquipmentId Non-Existent",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAxNDQ5LCJleHAiOjE3NDcwMDIxNjl9.4X0KFlDadMjmsbUAKpf2Eb-tDgnI_U-IbDxClZNmjD4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"equipmentId\": \"6cd5c562-f38c-42c8-888c-8a63329fb7ba\",\n  \"userId\": \"6da1ae26-4c22-46d5-bfb5-35601f245666\",\n  \"startDate\": \"2025-05-11T22:06:10.690746Z\",\n  \"endDate\": \"2025-05-11T22:06:10.690795Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserId Non-Existent",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAxNDQ5LCJleHAiOjE3NDcwMDIxNjl9.4X0KFlDadMjmsbUAKpf2Eb-tDgnI_U-IbDxClZNmjD4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"equipmentId\": \"0ae00a7b-aed9-4dcd-8678-21b8d6678999\",\n  \"userId\": \"6cd5c562-f38c-42c8-888c-8a63329fb7ba\",\n  \"startDate\": \"2025-05-11T22:06:10.690746Z\",\n  \"endDate\": \"2025-05-11T22:06:10.690795Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Invalid Dates",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAxNDQ5LCJleHAiOjE3NDcwMDIxNjl9.4X0KFlDadMjmsbUAKpf2Eb-tDgnI_U-IbDxClZNmjD4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"equipmentId\": \"0ae00a7b-aed9-4dcd-8678-21b8d6678999\",\n  \"userId\": \"79171a95-6eed-4646-bf98-f56ecc04355e\",\n  \"startDate\": \"2026-08-12T14:00:00Z\",\n  \"endDate\": \"2025-05-12T12:00:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Missing Fields",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAxNDQ5LCJleHAiOjE3NDcwMDIxNjl9.4X0KFlDadMjmsbUAKpf2Eb-tDgnI_U-IbDxClZNmjD4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"equipmentId\": \"1d08450c-b18a-42e0-9ae6-c0d420ebebfe\",\n  \"startDate\": \"2025-05-11T22:06:10.690746Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Non-Existent Reservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAxNDQ5LCJleHAiOjE3NDcwMDIxNjl9.4X0KFlDadMjmsbUAKpf2Eb-tDgnI_U-IbDxClZNmjD4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"startDate\": \"2025-04-11T22:06:10.690746Z\",\n  \"endDate\": \"2025-05-11T22:06:10.690795Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservations/6cd5c562-f38c-42c8-888c-8a63329fb7ba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations",
+						"6cd5c562-f38c-42c8-888c-8a63329fb7ba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Non-Existent Reservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAxNDQ5LCJleHAiOjE3NDcwMDIxNjl9.4X0KFlDadMjmsbUAKpf2Eb-tDgnI_U-IbDxClZNmjD4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/reservations/6cd5c562-f38c-42c8-888c-8a63329fb7ba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations",
+						"6cd5c562-f38c-42c8-888c-8a63329fb7ba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Non-Existent Reservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAxNDQ5LCJleHAiOjE3NDcwMDIxNjl9.4X0KFlDadMjmsbUAKpf2Eb-tDgnI_U-IbDxClZNmjD4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/reservations/6cd5c562-f38c-42c8-888c-8a63329fb7ba",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations",
+						"6cd5c562-f38c-42c8-888c-8a63329fb7ba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search With Invalid Date",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAyMTg1LCJleHAiOjE3NDcwMDI5MDV9.69q8FQXCW4kgVl_gICb3zKgQXVIxxry_dRltTe1ErJM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/reservations/search?startDate=fecha-inválida",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations",
+						"search"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "fecha-inválida"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Duplicate Reservation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAyMTg1LCJleHAiOjE3NDcwMDI5MDV9.69q8FQXCW4kgVl_gICb3zKgQXVIxxry_dRltTe1ErJM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"equipmentId\": \"0ae00a7b-aed9-4dcd-8678-21b8d6678999\",\n  \"userId\": \"79171a95-6eed-4646-bf98-f56ecc04355e\",\n  \"startDate\": \"2025-05-11T20:35:49.000Z\",\n  \"endDate\": \"2025-05-11T22:35:49.000Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Reservations Without Token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer token-invalido"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

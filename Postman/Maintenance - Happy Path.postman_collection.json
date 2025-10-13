@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "1efcdd49-d7a5-410f-bb0c-05b1df20b510",
+		"name": "Maintenance Module",
+		"description": "Postman collection for Maintenance module testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42130956"
+	},
+	"item": [
+		{
+			"name": "Create Equipment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Laptop Dell XPS 15\",\r\n  \"model\": \"XPS9370\",\r\n  \"description\": \"Ultrabook de 13 pulgadas para tareas generales\",\r\n  \"category\": \"laptop\",\r\n  \"status\": \"available\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/equipment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"equipment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Malte2\",\r\n  \"email\": \"malte2@gmail.com\",\r\n  \"password\": \"Malte123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTkxNzE4LCJleHAiOjE3NDY5OTI0Mzh9.a9qe0gyZRqTtnvxp6z1vK1glXY-DYw1c2pSI5HGAXYE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"malte2@gmail.com\",\r\n  \"roles\": [\"technical\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/b8a71dac-1a22-4d75-942d-2cc0132607ba",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"b8a71dac-1a22-4d75-942d-2cc0132607ba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Maintenance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTkxNzE4LCJleHAiOjE3NDY5OTI0Mzh9.a9qe0gyZRqTtnvxp6z1vK1glXY-DYw1c2pSI5HGAXYE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"equipmentId\": \"46a623dd-61cc-4591-96d1-0105bfa2a3bb\",\n  \"technicianId\": \"b8a71dac-1a22-4d75-942d-2cc0132607ba\",\n  \"description\": \"Revisión del sistema de refrigeración\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:3000/maintenance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Maintenance (paginated)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTkxNzE4LCJleHAiOjE3NDY5OTI0Mzh9.a9qe0gyZRqTtnvxp6z1vK1glXY-DYw1c2pSI5HGAXYE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/maintenance?limit=10&offset=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Maintenance (filters)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTkxNzE4LCJleHAiOjE3NDY5OTI0Mzh9.a9qe0gyZRqTtnvxp6z1vK1glXY-DYw1c2pSI5HGAXYE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/maintenance/search?equipmentName=Laptop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance",
+						"search"
+					],
+					"query": [
+						{
+							"key": "equipmentName",
+							"value": "Laptop"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Maintenance by ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTkxNzE4LCJleHAiOjE3NDY5OTI0Mzh9.a9qe0gyZRqTtnvxp6z1vK1glXY-DYw1c2pSI5HGAXYE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/maintenance/10855db6-2b7c-4f76-9592-03ad057c27c7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance",
+						"10855db6-2b7c-4f76-9592-03ad057c27c7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Maintenance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTkxNzE4LCJleHAiOjE3NDY5OTI0Mzh9.a9qe0gyZRqTtnvxp6z1vK1glXY-DYw1c2pSI5HGAXYE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Revision completa del sistema\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/maintenance/10855db6-2b7c-4f76-9592-03ad057c27c7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance",
+						"10855db6-2b7c-4f76-9592-03ad057c27c7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Maintenance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTkxNzE4LCJleHAiOjE3NDY5OTI0Mzh9.a9qe0gyZRqTtnvxp6z1vK1glXY-DYw1c2pSI5HGAXYE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/maintenance/10855db6-2b7c-4f76-9592-03ad057c27c7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance",
+						"10855db6-2b7c-4f76-9592-03ad057c27c7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

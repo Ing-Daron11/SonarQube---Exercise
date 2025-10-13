@@ -1,0 +1,61 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: equiprent_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: equiprent_db
+      JWT_SECRET: sexoanall
+      JWT_EXPIRES_IN: 2h
+      PORT: 3000
+
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run unit tests
+        run: yarn test
+
+      - name: Run e2e tests users
+        run: yarn test:e2e -- test/users/users.e2e-spec.ts
+
+      - name: Run e2e tests equipment
+        run: yarn test:e2e -- test/equipment/equipment.e2e-spec.ts
+
+      - name: Deploy to Railway
+        run: |
+          curl -fsSL https://railway.app/new/project/deploy \
+          -H "Authorization: ${{ secrets.RAILWAY_TOKEN }}"

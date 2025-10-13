@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "8d1f4e06-fab2-49a8-96fa-8ee7c27594b9",
+		"name": "Reservations - Happy Path",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42130956"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Curly\",\r\n  \"email\": \"curly@gmail.com\",\r\n  \"password\": \"Curly123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTk2Nzk3LCJleHAiOjE3NDY5OTc1MTd9.U4GTVKP1kudZCmnQ9egq_-fH4oP-VJ9nLlQdUDo9i6U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"curly@gmail.com\",\r\n  \"roles\": [\"user\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/79171a95-6eed-4646-bf98-f56ecc04355e",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"79171a95-6eed-4646-bf98-f56ecc04355e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear reserva",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTk3NzY0LCJleHAiOjE3NDY5OTg0ODR9.Fqo3LBSajhPbIe6hTn6sXsXZvH6-qiGm_a1_6Qt2aqU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <token>",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"equipmentId\": \"0ae00a7b-aed9-4dcd-8678-21b8d6678999\",\n  \"userId\": \"79171a95-6eed-4646-bf98-f56ecc04355e\",\n  \"startDate\": \"2025-05-11T20:35:49Z\",\n  \"endDate\": \"2025-05-11T22:35:49Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todas las reservas",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTk3NzY0LCJleHAiOjE3NDY5OTg0ODR9.Fqo3LBSajhPbIe6hTn6sXsXZvH6-qiGm_a1_6Qt2aqU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <token>",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/reservations?limit=10&offset=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar reservas por equipmentId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAwNDQwLCJleHAiOjE3NDcwMDExNjB9.SQsuvPoVS-i7UkKyclR8kBBpu_s7hSA-AWv2ESyN8Bs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <token>",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/reservations/search?equipmentId=0ae00a7b-aed9-4dcd-8678-21b8d6678999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations",
+						"search"
+					],
+					"query": [
+						{
+							"key": "equipmentId",
+							"value": "0ae00a7b-aed9-4dcd-8678-21b8d6678999"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener reserva por ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAwNDQwLCJleHAiOjE3NDcwMDExNjB9.SQsuvPoVS-i7UkKyclR8kBBpu_s7hSA-AWv2ESyN8Bs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <token>",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/reservations/2aebbe6b-26b6-4620-a45d-9cba493c1848",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations",
+						"2aebbe6b-26b6-4620-a45d-9cba493c1848"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar reserva",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAwNDQwLCJleHAiOjE3NDcwMDExNjB9.SQsuvPoVS-i7UkKyclR8kBBpu_s7hSA-AWv2ESyN8Bs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <token>",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"startDate\": \"2025-05-11T20:35:49Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/reservations/2aebbe6b-26b6-4620-a45d-9cba493c1848",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations",
+						"2aebbe6b-26b6-4620-a45d-9cba493c1848"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar reserva",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDAwNDQwLCJleHAiOjE3NDcwMDExNjB9.SQsuvPoVS-i7UkKyclR8kBBpu_s7hSA-AWv2ESyN8Bs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <token>",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/reservations/2aebbe6b-26b6-4620-a45d-9cba493c1848",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reservations",
+						"2aebbe6b-26b6-4620-a45d-9cba493c1848"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

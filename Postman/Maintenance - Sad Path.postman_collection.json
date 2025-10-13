@@ -1,0 +1,280 @@
+{
+	"info": {
+		"_postman_id": "a288ba47-38bf-4ebf-b137-a1940c26995d",
+		"name": "Maintenance - Sad Path",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42130956"
+	},
+	"item": [
+		{
+			"name": "Create Maintenance Without Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"equipmentId\": \"f6f8f252-b47b-493e-985e-872dd269176d\",\r\n  \"technicianId\": \"4403a5fe-d054-4cd3-bf39-9fb3e237ab03\",\r\n  \"description\": \"Verificación sin token\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/maintenance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Maintenance With Equipment Non-Existent",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTk0NDg4LCJleHAiOjE3NDY5OTUyMDh9.GHtMmaBFEuXSfO5iRLSUqAfHmXS37ZW5KqwhRiM-biI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"equipmentId\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"technicianId\": \"4403a5fe-d054-4cd3-bf39-9fb3e237ab03\",\r\n  \"description\": \"Equipo inexistente\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/maintenance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Maintenance With Technical Non-Existent",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTk0NDg4LCJleHAiOjE3NDY5OTUyMDh9.GHtMmaBFEuXSfO5iRLSUqAfHmXS37ZW5KqwhRiM-biI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"equipmentId\": \"0ae00a7b-aed9-4dcd-8678-21b8d6678999\",\r\n  \"technicianId\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"description\": \"Técnico inexistente\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/maintenance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Maintenance With Empty Description",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTk0NDg4LCJleHAiOjE3NDY5OTUyMDh9.GHtMmaBFEuXSfO5iRLSUqAfHmXS37ZW5KqwhRiM-biI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"equipmentId\": \"0ae00a7b-aed9-4dcd-8678-21b8d6678999\",\r\n  \"technicianId\": \"b8a71dac-1a22-4d75-942d-2cc0132607ba\",\r\n  \"description\": \"\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/maintenance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Maintenance With A Non-Technical User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ3MDA0MTQxLCJleHAiOjE3NDcwMDQ4NjF9.17aiqkiBmcvcEICZtdCbZrulHvyUA5CGN2VqkQtjdMI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"equipmentId\": \"46a623dd-61cc-4591-96d1-0105bfa2a3bb\",\r\n  \"technicianId\": \"402cf1d4-3a4d-414f-8894-83118896bcb2\",\r\n  \"description\": \"Revisión del sistema de refrigeración\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/maintenance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Maintenance With ID Non-Existent",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTk0OTQwLCJleHAiOjE3NDY5OTU2NjB9.fCv9fmMMjo_gAGSslF72SmMN6wYDNNOajfS2MOSceBU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/maintenance/00000000-0000-0000-0000-000000000000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Maintenance With ID Non-Existent",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTk0OTQwLCJleHAiOjE3NDY5OTU2NjB9.fCv9fmMMjo_gAGSslF72SmMN6wYDNNOajfS2MOSceBU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/maintenance/00000000-0000-0000-0000-000000000000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance",
+						"00000000-0000-0000-0000-000000000000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Maintenance by ID with Non-Existent  ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZmZjNTE1YTMtOTczZi00MjVhLThmMTMtMGIxMWNlNTUwMmIzIiwiaWF0IjoxNzQ2OTk0OTQwLCJleHAiOjE3NDY5OTU2NjB9.fCv9fmMMjo_gAGSslF72SmMN6wYDNNOajfS2MOSceBU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/maintenance/10855db6-2b7c-4f76-9592-03ad057c27c7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"maintenance",
+						"10855db6-2b7c-4f76-9592-03ad057c27c7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
