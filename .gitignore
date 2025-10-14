@@ -58,3 +58,21 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+*.tfvars
+
+# SonarQube
+.scannerwork/
+sonar-scanner-*/
+
+# Security scan results
+trivy-results.*
+
+# Azure CLI
+.azure/
